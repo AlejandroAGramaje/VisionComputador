@@ -1,6 +1,5 @@
 #EditBox y umbralización
 import cv2
-import numpy as np
 import tkinter as tk
 from tkinter import filedialog
 import os
@@ -13,8 +12,10 @@ def seleccionar_imagen():
     ruta = filedialog.askopenfilename(title="Seleccionar imagen")
     if ruta:
         img_color = cv2.imread(ruta)
-        img_gray = cv2.cvtColor(img_color, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("Original", img_gray)
+        imagen_resize = cv2.resize(img_color, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+        img_gray = cv2.cvtColor(imagen_resize, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("Original", imagen_resize)
+        cv2.imshow("EscalaGrises", img_gray)
 
 def aplicar_umbral():
     global img_umbralizada

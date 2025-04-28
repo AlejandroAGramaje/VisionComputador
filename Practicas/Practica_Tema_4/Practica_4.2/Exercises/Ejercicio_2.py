@@ -1,6 +1,5 @@
 #Ejercicio 2: Slider para umbralización en tiempo real
 import cv2
-import numpy as np
 import tkinter as tk
 from tkinter import filedialog
 
@@ -11,10 +10,13 @@ def seleccionar_imagen():
     global img_gray
     ruta = filedialog.askopenfilename(title="Seleccionar imagen")
     if ruta:
-        img_color = cv2.imread(ruta)
-        img_gray = cv2.cvtColor(img_color, cv2.COLOR_BGR2GRAY)
+        mg_color = cv2.imread(ruta)
+        imagen_resize = cv2.resize(mg_color, None, fx=0.5, fy=0.5, interpolation=cv2.INTER_LINEAR)
+        img_gray = cv2.cvtColor(imagen_resize, cv2.COLOR_BGR2GRAY)
         aplicar_umbral(slider_umbral.get())
-        cv2.imshow("Original", img_gray)
+        cv2.imshow("Original", imagen_resize)
+        cv2.imshow("Escala de Grises", img_gray)
+        
 
 def aplicar_umbral(umbral):
     global img_umbralizada
