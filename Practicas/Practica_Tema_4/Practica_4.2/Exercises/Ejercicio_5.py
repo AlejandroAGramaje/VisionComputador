@@ -11,7 +11,8 @@ def seleccionar_imagen():
     ruta = filedialog.askopenfilename(title="Seleccionar imagen")
     if ruta:
         img_color = cv2.imread(ruta)
-        cv2.imshow("Imagen cargada", img_color)
+        reducida_original = cv2.resize(img_color, None, fx=0.5, fy=0.5)
+        cv2.imshow("Imagen cargada", reducida_original)
         mostrar_histograma()
 
 def mostrar_histograma():

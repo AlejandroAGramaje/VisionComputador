@@ -21,8 +21,9 @@ def aplicar_umbral():
         minimo = int(entry_min.get())
         maximo = int(entry_max.get())
         # Creamos la máscara con inRange
-        img_rango = cv2.inRange(img_gray, minimo, maximo)
-        cv2.imshow("Umbralización doble", img_rango)
+        reducida_original = cv2.resize(img_gray, None, fx=0.5, fy=0.5)
+        img_rango = cv2.inRange(reducida_original, minimo, maximo)
+        cv2.imshow("umbralizacion doble", img_rango)
 
 # GUI
 ventana = tk.Tk()
@@ -41,7 +42,7 @@ entry_max = tk.Entry(ventana)
 entry_max.insert(0, "200")
 entry_max.pack()
 
-btn_aplicar = tk.Button(ventana, text="Aplicar umbralización doble", command=aplicar_umbral)
+btn_aplicar = tk.Button(ventana, text="Aplicar umbralizacion doble", command=aplicar_umbral)
 btn_aplicar.pack(pady=10)
 
 ventana.mainloop()
