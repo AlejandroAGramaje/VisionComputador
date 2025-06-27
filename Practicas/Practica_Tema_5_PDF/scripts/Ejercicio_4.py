@@ -15,19 +15,19 @@ def cargar_y_thinning():
     imagen = cv2.bitwise_not(imagen)
 
     # Duplicamos para el proceso
-    imagen1 = imagen.copy()
+    thinned = imagen.copy()
     iskel = np.zeros(imagen.shape, dtype='uint8')
 
     # Kernel cruzado (habitual para morfología)
     kernel = cv2.getStructuringElement(cv2.MORPH_CROSS, (3, 3))
 
     # Bucle hasta que la imagen esté vacía
-    while cv2.countNonZero(imagen1) != 0:
-        img_erosionada = cv2.erode(imagen1, kernel)
+    while cv2.countNonZero(thinned) != 0:
+        img_erosionada = cv2.erode(thinned, kernel)
         img_abierta = cv2.morphologyEx(img_erosionada, cv2.MORPH_OPEN, kernel)
         img_resta = cv2.subtract(img_erosionada, img_abierta)
         iskel = cv2.bitwise_or(iskel, img_resta)
-        imagen1 = img_erosionada.copy()
+        thinned = img_erosionada.copy()
 
     # Mostramos resultado (reducido para que no ocupe toda la pantalla)
     reducida_original = cv2.resize(imagen, None, fx=0.5, fy=0.5)
